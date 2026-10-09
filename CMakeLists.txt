@@ -209,11 +209,43 @@ set(XSD_VERSION_HEADER
 #endif // XSD_VERSION
 ")
 
+set(LIBXSD_VERSION_HEADER
+"// file      : xsd/version.hxx
+// license   : GNU GPL v2 + exceptions; see accompanying LICENSE file
+
+#ifndef XSD_VERSION
+
+#define XSD_VERSION       ${XSD_VERSION_NUMBER}ULL
+#define XSD_VERSION_STR   \"${XSD_VERSION_STR}\"
+#define XSD_VERSION_ID    \"${XSD_VERSION_ID}\"
+#define XSD_VERSION_FULL  \"${XSD_VERSION_FULL}\"
+
+#define XSD_VERSION_MAJOR ${XSD_VERSION_MAJOR}
+#define XSD_VERSION_MINOR ${XSD_VERSION_MINOR}
+#define XSD_VERSION_PATCH ${XSD_VERSION_PATCH}
+
+#define XSD_PRE_RELEASE   ${XSD_PRE_RELEASE}
+
+#define XSD_SNAPSHOT      ${XSD_SNAPSHOT}ULL
+#define XSD_SNAPSHOT_ID   \"${XSD_SNAPSHOT_ID}\"
+
+#endif // XSD_VERSION
+")
+
 file(GENERATE
     OUTPUT
         "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
     CONTENT
         "${XSD_VERSION_HEADER}"
+)
+
+
+
+file(GENERATE
+    OUTPUT
+        "${CMAKE_CURRENT_BINARY_DIR}/libxsd/version.hxx"
+    CONTENT
+        "${LIBXSD_VERSION_HEADER}"
 )
 
 
@@ -312,14 +344,7 @@ install(
 )
 
 install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/libxsd/version.hxx"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xsd/cxx"
 )
 
-add_custom_target(print_version_header ALL
-    COMMAND "${CMAKE_COMMAND}" -E cat
-            "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
-    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
-    COMMENT "Printing generated version.hxx"
-    VERBATIM
-)

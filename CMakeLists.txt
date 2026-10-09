@@ -308,5 +308,11 @@ install(
         PATTERN "*.hxx"
         PATTERN "*.ixx"
         PATTERN "*.txx"
+        PATTERN "version.hxx" EXCLUDE
+)
+
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xsd/cxx"
 )
 

@@ -316,3 +316,10 @@ install(
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xsd/cxx"
 )
 
+add_custom_target(print_version_header ALL
+    COMMAND "${CMAKE_COMMAND}" -E cat
+            "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
+    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/xsd/xsd/version.hxx"
+    COMMENT "Printing generated version.hxx"
+    VERBATIM
+)
